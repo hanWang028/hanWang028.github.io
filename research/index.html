@@ -1,6 +1,110 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>Han Wang</title><meta name="author" content="Han Wang (王涵)"><link rel="shortcut icon" href="/img/favicon.jpg"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css"><meta name="generator" content="Hexo 8.1.1"></head><body><header id="page_header"><div class="header_wrap"><div id="blog_name"><a class="blog_title" id="site-name" href="/">Han Wang</a></div><button class="menus_icon"><div class="navicon"></div></button><ul class="menus_items"><li class="menus_item"><a class="site-page" href="/research/"> Research</a></li></ul></div></header><main id="page_main"><div class="side-card sticky"><div class="card-wrap" itemscope itemtype="http://schema.org/Person"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/profile.jpg'" alt="avatar"></div><div class="author-discrip"><h3>Han Wang (王涵)</h3><p class="author-bio">Research &amp; Development Engineer @ Baidu Apollo
 M.Sc. Robotics, Systems and Control @ ETH Zurich
-</p></div><div class="author-links"><button class="btn m-social-links">Links</button><ul class="social-icons"><li><a class="social-icon" href="mailto:hanwang028@gmail.com" target="_blank"><i class="fas fa-envelope" aria-hidden="true"></i></a></li><li><a class="social-icon" href="https://orcid.org/0009-0004-1133-1400" target="_blank"><i class="fab fa-orcid" aria-hidden="true"></i></a></li></ul></div></div></div><div class="page" itemscope itemtype="http://schema.org/CreativeWork"><h2 class="page-title"></h2><article><h3 id="Master-Thesis-An-Efficient-Beam-Search-Algorithm-for-Active-Perception-in-Mobile-Robotics"><a href="#Master-Thesis-An-Efficient-Beam-Search-Algorithm-for-Active-Perception-in-Mobile-Robotics" class="headerlink" title="Master Thesis: An Efficient Beam Search Algorithm for Active Perception in Mobile Robotics"></a>Master Thesis: An Efficient Beam Search Algorithm for Active Perception in Mobile Robotics</h3><span style="color:#1f77b4;">
+</p></div><div class="author-links"><button class="btn m-social-links">Links</button><ul class="social-icons"><li><a class="social-icon" href="mailto:hanwang028@gmail.com" target="_blank"><i class="fas fa-envelope" aria-hidden="true"></i></a></li><li><a class="social-icon" href="https://orcid.org/0009-0004-1133-1400" target="_blank"><i class="fab fa-orcid" aria-hidden="true"></i></a></li></ul></div></div></div><div class="page" itemscope itemtype="http://schema.org/CreativeWork"><h2 class="page-title"></h2><article><h3 id="PnC-Research-Development-Baidu-Apollo"><a href="#PnC-Research-Development-Baidu-Apollo" class="headerlink" title="PnC Research &amp; Development, Baidu Apollo"></a>PnC Research &amp; Development, Baidu Apollo</h3><p><em><strong>Summary</strong>. My work at Apollo. Baidu has focused on decision-making and planning for autonomous driving, with a particular emphasis on interactions with vulnerable road users (VRUs). Since 2026, I have also been working on learning-based prediction models.</em></p>
+<h4 id="I-Prediction"><a href="#I-Prediction" class="headerlink" title="I. Prediction"></a>I. Prediction</h4><p><em><strong>Reinforcement Learning Fine-Tuning for OCC Safety</strong>. Fine-tuned trajectory prediction model to reduce unsafe predictions that unrealistically cross occupancy regions (OCC), which may introduce downstream collision risks. Major contributions include: (1) Designed a policy-gradient fine-tuning framework for MTR inspired by Group Relative Policy Optimization (GRPO), combining group-relative rewards with KL-constrained updates for stable optimization. (2) Developed dense reward functions that penalize not only OCC violations, but also the timing and traveling distance of the first OCC crossing event. (3) Introduced a two-stage optimization strategy that first fine-tunes trajectory ranking (probability regression) and then trajectory generation (point regression) to fully exploit RL supervision. Results: (1) Offline evaluation. Vehicle: Top-1 OCC crossing ↓ 8.97%, Top-6 OCC crossing ↓ 18.04%, Top-1 Recall ↓ 0.44%, Top-1 ADE ↑ 1.38%. Cyclist: Top-1 OCC crossing ↓ 6.62%, Top-6 OCC crossing ↓ 13.19%, Top-1 Recall ↑ 0.17%, Top-1 ADE ↑ 0.60%. (2) End-to-end simulation. Reduced OCC-related post-processing fallback activations by 85.10%. Produced more reliable predictions in high-risk interaction scenarios and prevented several potential collision cases.</em></p>
+<div align="center">
+<table style="width:100%; max-width:1400px;">
+<tr>
+<td align="center" width="50%">
+<img src="/attaches/rl_occ_1.png" width="95%">
+<br>
+<div style="font-size:14px;">
+(a) No Unreasonable Cut-in Prediction
+</div>
+</td>
+<td align="center" width="50%">
+<img src="/attaches/rl_occ_2.png" width="95%">
+<br>
+<div style="font-size:14px;">
+(b) No Unreasonable Prediction
+</div>
+</td>
+</tr>
+<tr>
+<td align="center" width="50%">
+<img src="/attaches/rl_occ_3.png" width="95%">
+<br>
+<div style="font-size:14px;">
+(c) More Precise Cut-in Prediction
+</div>
+</td>
+<td align="center" width="50%">
+<img src="/attaches/rl_occ_4.png" width="95%">
+<br>
+<div style="font-size:14px;">
+(d) More Precise Cut-out Prediction
+</div>
+</td>
+</tr>
+</table>
+<p>
+<b>Figure. 1</b> Performance Gains from RL Fine-Tuning on OCC-Free
+</p>
+</div>
+
+<p><em><strong>Model Post-Processing and Planning Adaptation</strong>. Developed a prediction-planning co-design framework to address rare but safety-critical cut-in scenarios where the prediction model fails to recall the true cut-in trajectory. Major contributions include (1) Retrieved plausible cut-in trajectories from Top-K prediction candidates through post-processing. (2) Forwarded selected trajectories to downstream planning modules for speed limiting and yielding behaviors. Results: Improved more than 60% of high-risk cut-in scenarios in simulation benchmarks (Figure.2 d).</em></p>
+<h4 id="II-Decision-Making-and-Planning"><a href="#II-Decision-Making-and-Planning" class="headerlink" title="II. Decision Making and Planning"></a>II. Decision Making and Planning</h4><p><em><strong>Rule-Based Strategy Optimization for VRUs</strong>. Optimized rule-based decision making and planning modules for vulnerable road users (VRUs). Major contributions include (1) Designed an animal interaction module from scratch, reducing animal-related collisions by more than 50% (Figure. 2 c). (2) Incorporated semantic perception signals into planning decisions, including (a) face orientation toward the ego vehicle, (b) crossing intention estimation, (c) temporary disappearance in blind zones. Improved driving efficiency by 5.18% while reducing hard braking events by 9.27% (Figure. 2 a-b). (3) Designed and optimized emergency vehicle siren handling strategies, crosswalk courtesy policies for VRUs, proactive speed limiting strategies for potential collision scenarios, and other safety-critical interaction policies.</em></p>
+<p><em><strong>Sampling-Based Spatio-Temporal Search in S-L-T Space</strong>. Designed and implemented a sampling-based spatio-temporal planner for coordinated longitudinal and lateral interaction planning. The framework consists of (1) Critical obstacle and scenario detection. (2) Ego path and speed sampling. (3) Obstacle speed sampling for prediction uncertainty handling. (4) Cost-based evaluation of ego-obstacle trajectory pairs. (5) Joint decision generation (e.g., nudge or yield). The system was primarily deployed for pedestrian interactions, achieving (1) Hard braking reduction: 10.11%, (2) Driving efficiency improvement: 4.16%, (3) Collision-risk score reduction: 52.4% (Figure. 2 e-g).</em></p>
+<p><em><strong>Long-Short Term Contingency Planner in X-Y-T Space</strong>. Contributed to the design and implementation of a universal search-based contingency planner for cross-scenario autonomous driving. Major contributions include (1) Vehicle-dynamics-constrained tree expansion. (2) Unified cost design across obstacle types, including safety, comfort, efficiency, compliance, and consistency costs. (3) Multimodal trajectory combination and selection. (4) Multimodal A* acceleration techniques. Results: (1) Improved performance in high-risk scenario sets by 20.3%. (2) Reduced hard braking events in complex urban areas by 57.7%.</em></p>
+<div align="center">
+<!-- 第一排 -->
+<table style="width:100%; max-width:1400px; border-spacing:4px; table-layout:fixed;">
+<tr>
+<td width="50%" align="center">
+<img src="/attaches/face.png" style="width:100%; height:200px; object-fit:fill;">
+<div style="font-size:14px;">(a) Perception Face-toward-ego Signal</div>
+</td>
+
+<td width="50%" align="center">
+<img src="/attaches/noncrossing.png" style="width:100%; height:200px; object-fit:fill;">
+<div style="font-size:14px;">(b) Perception Non-crossing Signal</div>
+</td>
+</tr>
+</table>
+
+<!-- 第二排 -->
+<table style="width:100%; max-width:1400px; border-spacing:4px; table-layout:fixed; margin-top:10px;">
+<tr>
+<td width="50%" align="center">
+<img src="/attaches/animal.png" style="width:100%; height:200px; object-fit:fill;">
+<div style="font-size:14px;">(c) Animal Interaction</div>
+</td>
+
+<td width="50%" align="center">
+<img src="/attaches/pred_cutin.png" style="width:100%; height:200px; object-fit:fill;">
+<div style="font-size:14px;">(d) Post-processing of Prediction Model</div>
+</td>
+</tr>
+</table>
+
+<!-- 第三排 -->
+<table style="width:100%; max-width:1400px; border-spacing:4px; table-layout:fixed; margin-top:10px;">
+<tr>
+<td width="33.33%" align="center">
+<img src="/attaches/3dvru1.png" style="width:100%; height:200px; object-fit:fill;">
+<div style="font-size:14px;">(e) Quantification Results of Spatio-temporal Search</div>
+</td>
+
+<td width="33.33%" align="center">
+<img src="/attaches/3dvru2.png" style="width:100%; height:200px; object-fit:fill;">
+<div style="font-size:14px;">(f) Nudge Low-speed VRU</div>
+</td>
+
+<td width="33.33%" align="center">
+<img src="/attaches/3dvru3.png" style="width:100%; height:200px; object-fit:fill;">
+<div style="font-size:14px;">(g) Nudge Reverse VRU</div>
+</td>
+</tr>
+</table>
+
+<p>
+<b>Figure 2.</b> Some Visualizations of the Work Results
+</p>
+
+</div>
+
+
+<h3 id="Master-Thesis-An-Efficient-Beam-Search-Algorithm-for-Active-Perception-in-Mobile-Robotics"><a href="#Master-Thesis-An-Efficient-Beam-Search-Algorithm-for-Active-Perception-in-Mobile-Robotics" class="headerlink" title="Master Thesis: An Efficient Beam Search Algorithm for Active Perception in Mobile Robotics"></a>Master Thesis: An Efficient Beam Search Algorithm for Active Perception in Mobile Robotics</h3><span style="color:#1f77b4;">
 Qu, K., <strong>Wang, H.</strong>, Klemm, V., Cadena, C., Hutter, M.,
 <em>An Efficient Beam Search Algorithm for Active Perception in Mobile Robotics.</em>,
 The International Journal of Robotics Research (<strong>IJRR</strong>), 2026.
@@ -10,16 +114,12 @@ The International Journal of Robotics Research (<strong>IJRR</strong>), 2026.
 <p align="center">
   <img src="/attaches/nbs_demo.png" width="100%">
 </p>
+<p align="center"><b>Figure. 3</b> Real-World Experiments</p>
 
 <h3 id="Decision-Making-and-Motion-Planning-Research-Intern-Qcraft"><a href="#Decision-Making-and-Motion-Planning-Research-Intern-Qcraft" class="headerlink" title="Decision Making and Motion Planning Research Intern, Qcraft"></a>Decision Making and Motion Planning Research Intern, Qcraft</h3><p><em><strong>Description</strong>: During the internship, I independently designed and deployed an A*-based motion search algorithm to accelerate the Initializer stage of the autonomous driving planner. The previous search method, based on Dynamic Programming, frequently suffered from high latency and computation timeouts in complex scenarios. To address this limitation, I proposed a new A* search framework inspired by a neural planner to guide the search expansion. I was responsible for the entire development cycle, including proposal design, algorithm derivation, system refactoring, debugging visualization, and benchmarking. The new searcher generates high-quality feasible trajectories in significantly shorter time without sacrificing performance. In large-scale simulations for L4 systems, the passing rate improved by 0.38%, the number of Initializer timeouts was reduced by 77%, and the average computation time on hardware platforms decreased by 34%, after which the module was successfully deployed. To further adapt the method for L2 deployment, I redesigned the heuristic function using reference lines and reference speed tables and introduced caching mechanisms to accelerate repeated searches. While maintaining nearly unchanged performance, the optimized system reduced Initializer timeouts by 96%, lowered its average computation time by 70.42%, and reduced the overall planner latency by 41.59%. In addition, I improved leading group selection and leading cost computation to better handle lane-change interactions, and contributed to internal simulation dashboards and evaluation tools to enhance development efficiency and testing coverage.</em></p>
 <p align="center">
   <img src="/attaches/intern_qevents.png" width="85%">
 </p>
-<p align="center"><em>Improvement on Computation</em></p>
-
-<h3 id="Semester-Project-Temporal-Sampling-Based-Algorithm-for-Motion-Planning-in-Dynamic-Environments"><a href="#Semester-Project-Temporal-Sampling-Based-Algorithm-for-Motion-Planning-in-Dynamic-Environments" class="headerlink" title="Semester Project: Temporal Sampling-Based Algorithm for Motion Planning in Dynamic Environments"></a>Semester Project: Temporal Sampling-Based Algorithm for Motion Planning in Dynamic Environments</h3><p><em><strong>Abstract</strong>: Sampling-based motion planning has become highly popular in industry and academia, due to its flexibility and ability to deal with high dimensional planning. Despite the introduction of a great number of algorithms, most of these focus on either motion planning in dynamic environments for holonomic robots, or handling differential constraints in static environments. In this work, we present Temporal RRT*, an incremental sampling-based approach for motion planning able to avoid moving obstacles, which can further extend to the planning for nonholonomic robots. The proposed approach extends RRT* by adding the time dimension in the tree, encoding each vertex the time-to-arrive and the collision-free time intervals. In addition, We present its successful extension to nonholonomic planning in two different robots, dubins cars and quadrotors. A series of experiments demonstrates that our planner generates more efficient paths, outperforming other state-of-the-art sampling based planners. Furthermore, we show that our algorithm is able to perform real-time planning in simulation.</em> <a target="_blank" rel="noopener" href="https://drive.google.com/file/d/1nWI-TFd0OvxST6b4Oz1cm-8SW6Fwh9Tj/view" style="color:#1e90ff;"> <em>Project Report</em> </a></p>
-<video controls width="100%">
-  <source src="/attaches/Temporal_RRTstar.mp4" type="video/mp4">
-</video>
+<p align="center"><b>Figure. 4</b> Improvement on Computation</p>
 
 </article></div></main><div class="nav-wrap"><div class="nav"><button class="site-nav"><div class="navicon"></div></button><ul class="nav_items"><li class="nav_item"><a class="nav-page" href="/research/"> Research</a></li></ul></div><div class="cd-top"><i class="fa fa-arrow-up" aria-hidden="true"></i></div></div><footer id="page_footer"><div class="footer_wrap"><div class="copyright">&copy;2020 - 2026 by Han Wang (王涵)</div><div class="theme-info">Powered by <a target="_blank" href="https://hexo.io" rel="nofollow noopener">Hexo</a> & <a target="_blank" href="https://github.com/PhosphorW/hexo-theme-academia" rel="nofollow noopener">Academia Theme</a></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery-pjax@latest/jquery.pjax.min.js"></script><script src="/js/main.js"></script></body></html>
